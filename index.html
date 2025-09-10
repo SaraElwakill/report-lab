@@ -53,7 +53,7 @@
 
     <script>
       const scriptURL =
-        "https://script.google.com/macros/s/AKfycby1YWX8PKuwH-InhXn57_AwsAcYK5XrBVwICu_qLdyYFPdsmRWzHthR05ETYnrkknER/exec"; // حط لينك Google Apps Script هنا
+        "https://script.google.com/macros/s/AKfycbzxQ9Wwq_LxSKH5z4YKI9UUswBZ6tMXxKWiO91QLRwAWpj6K-lspUSh9lbpNm5C1yXQ/exec"; // حط لينك Google Apps Script هنا
 
       function submitQuiz() {
         let name = document.getElementById("studentName").value;
@@ -81,17 +81,22 @@
 .then(data => {
   if (data.result === "duplicate") {
     document.getElementById("result").innerText =
-      `⚠️ الاسم "${data.name}" موجود قبل كده.`;
+      `⚠️ الاسم "${data.name}" مكرر - تم تسجيله برضه.`;
   } else {
     document.getElementById("result").innerText =
-      `✅ تم الحفظ: ${data.name} - ${data.score} / 2`;
+      `✅ تم الحفظ: ${data.name} - ${data.score}`;
   }
 })
-.catch(err => console.error("خطأ:", err));}
+.catch(err => {
+  console.error("خطأ:", err);
+  document.getElementById("result").innerText = "❌ حصل خطأ في الاتصال";
+});
+}
 
     </script>
   </body>
 </html>
+
 
 
 
