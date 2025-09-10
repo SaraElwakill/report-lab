@@ -73,15 +73,24 @@
         document.getElementById("result").innerText = `النتيجة: ${score} / 2`;
 
         // إرسال البيانات لـ Google Sheets
-        fetch(scriptURL, {
-          method: "POST",
-          body: JSON.stringify({ name: name, score: score }),
-        })
-          .then((res) => res.json())
-          .then((data) => console.log("تم الحفظ:", data))
-          .catch((err) => console.error("خطأ:", err));
-      }
+       fetch(scriptURL, {
+  method: "POST",
+  body: JSON.stringify({ name: name, score: score })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.result === "duplicate") {
+    document.getElementById("result").innerText =
+      `⚠️ الاسم "${data.name}" موجود قبل كده.`;
+  } else {
+    document.getElementById("result").innerText =
+      `✅ تم الحفظ: ${data.name} - ${data.score} / 2`;
+  }
+})
+.catch(err => console.error("خطأ:", err));
+
     </script>
   </body>
 </html>
+
 
